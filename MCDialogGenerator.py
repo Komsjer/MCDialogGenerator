@@ -122,7 +122,7 @@ class MCDialog:
         Line_2 = line_text[1] if len(line_text) > 1 else ""
         Line_3 = line_text[2] if len(line_text) > 2 else ""
         Line_4 = line_text[3] if len(line_text) > 3 else ""
-        return '/blockdata '+Cord_green+' {Text1: "{\\"text\\":\\"'+Line_1+'\\",\\"color\\":\\"dark_green\\",\\"bold\\":true,\\"clickEvent\\":{\\"action\\":\\"run_command\\",\\"value\\":\\"/scoreboard players add '+Identity_name+' DateProgress 1\\"}}",Text2: "{\\"text\\":\\"'+Line_2+'\\",\\"color\\":\\"dark_green\\",\\"bold\\":true}",Text3: "{\\"'+Line_3+'\\",\\"color\\":\\"dark_green\\",\\"bold\\":true}",Text4: "{\\"text\\":\\"'+Line_4+'\\",\\"color\\":\\"dark_green\\",\\"bold\\":true}"}'
+        return '/blockdata '+Cord_green+' {Text1: "{\\"text\\":\\"'+Line_1+'\\",\\"color\\":\\"dark_red\\",\\"bold\\":true,\\"clickEvent\\":{\\"action\\":\\"run_command\\",\\"value\\":\\"/scoreboard players add '+Identity_name+' DateProgress 1\\"}}",Text2: "{\\"text\\":\\"'+Line_2+'\\",\\"color\\":\\"dark_red\\",\\"bold\\":true}",Text3: "{\\"'+Line_3+'\\",\\"color\\":\\"dark_red\\",\\"bold\\":true}",Text4: "{\\"text\\":\\"'+Line_4+'\\",\\"color\\":\\"dark_red\\",\\"bold\\":true}"}'
 
     def format_blockdata1(self, row_num):
         row = self.dialog[row_num]
