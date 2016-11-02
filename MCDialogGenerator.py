@@ -131,7 +131,7 @@ class MCDialog:
     
     def format_sign_false(self, row_num):
         row = self.dialog[row_num]
-        Cord_red = self.cord_green_sign
+        Cord_red = self.cord_red_sign
         Identity_name = self.identity_name
         line_text = row["false_text"]
         line_text = line_text.split("/")
