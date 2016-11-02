@@ -14,7 +14,7 @@ import os
 displayName = "Komsjer's Dialog generator."
 
 inputs = (
-  ("Uses:\nFILEPATH\FILENAME.csv for a single file\nFILEPATH to read all files in that folder\nGOOGLESHEET_URL to load a google sheet","label"),
+  ("Uses:\nFILEPATH\FILENAME.csv for a single file\nFILEPATH to read all files in that folder\nGOOGLESHEET_URL to load a google sheet\n*make sure the sheet is public","label"),
   ("csv_file", ("string","value=C:\\")),
   ("indicator_wool",False),
 )
@@ -85,6 +85,10 @@ class MCDialog:
                 if str(dialog_row[0]) == "ENDB":
                     self.dialog.append("BLANK")
                     _is_reading = False
+                    continue
+
+                if str(dialog_row[0]) == "IGNORE":
+                    _start_location+=1
                     continue
 
                 if _is_reading and not (i-_start_location)%3 == 1:
