@@ -235,11 +235,11 @@ def generate_track(dialog,schematic,y=0,indicator_wool=False):
             #format_stopsound
             schematic.setBlockAt(9,y,i,211)
             schematic.setBlockDataAt(9,y,i, 5)
-            schematic.TileEntities.append(CommandBlock(9,y,i,dialog.format_stopsound(i),False))
+            schematic.TileEntities.append(CommandBlock(9,y,i,dialog.format_stopsound(i),True))
             #format_execute
             schematic.setBlockAt(10,y,i,211)
             schematic.setBlockDataAt(10,y,i, 5)
-            schematic.TileEntities.append(CommandBlock(10,y,i,dialog.format_execute(i),False))
+            schematic.TileEntities.append(CommandBlock(10,y,i,dialog.format_execute(i),True))
 
             
 
