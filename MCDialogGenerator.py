@@ -20,6 +20,18 @@ inputs = (
 )
 dimensions = 16
 
+def csv_from_url(url):
+    import urllib2
+    spreadsheet_id = re.findall(r"/([\s\S]*?)/", url)
+    spreadsheet_id = max(spreadsheet_id, key=len)
+    spreadsheet_grid_id = re.findall(r"gid=(\d+)", url)[0]
+    url = "https://docs.google.com/spreadsheets/d/"+spreadsheet_id+"/export?format=csv&id="+spreadsheet_id+"&gid="+spreadsheet_grid_id
+    header = {"User-Agent": 'MCChatGenerator'}
+    req = urllib2.Request(url, headers = header)
+
+    f = urllib2.urlopen(req)
+    return f.read()
+
 class MCDialog:
     def __init__(self, csv_filepath):
         self.identity_name = ""
@@ -276,6 +288,27 @@ def perform(level, box, options):
             generate_track(dialog,schematic,y=j*2 , indicator_wool=indicator_wool)
         if len(dialogs) == 0:
             raise(Exception("No file with extention .csv found in"+csv_file ))
+    ##URL
+    elif "https://" in csv_file:
+        print "--Loading google doc--"
+        csv_file = csv_from_url(csv_file)
+        full_path = os.path.realpath(__file__)
+        path, filename = os.path.split(full_path)
+        if not os.path.exists(path+"\.tmp"):
+            os.makedirs(path+"\.tmp")
+        f = open(path+"\.tmp"+"\dialog.csv" ,"w")
+        f.write(csv_file)
+        f.close()
+
+        csv_file = path+"\.tmp"+"\dialog.csv"
+        dialog = MCDialog(csv_file)
+        dialog.log()
+        schematic = MCSchematic(calculate_schematic_size([dialog]), mats=level.materials)
+        generate_track(dialog,schematic,indicator_wool=indicator_wool)
+
+        
+        
+        
 
     else:
         raise(Exception("Coulnd't parse path:"+csv_file))
