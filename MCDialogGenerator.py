@@ -224,15 +224,15 @@ def generate_track(dialog,schematic,y=0,indicator_wool=False):
             schematic.TileEntities.append(CommandBlock(7,y,i,dialog.format_killcommand(i),True))
             #format_blockdata2
             schematic.setBlockAt(8,y,i,137)
-            schematic.setBlockDataAt(8,y,i, 13)
+            schematic.setBlockDataAt(8,y,i, 5)
             schematic.TileEntities.append(CommandBlock(8,y,i,dialog.format_blockdata2(i),False))
             #format_stopsound
             schematic.setBlockAt(9,y,i,211)
-            schematic.setBlockDataAt(9,y,i, 13)
+            schematic.setBlockDataAt(9,y,i, 5)
             schematic.TileEntities.append(CommandBlock(9,y,i,dialog.format_stopsound(i),False))
             #format_execute
             schematic.setBlockAt(10,y,i,211)
-            schematic.setBlockDataAt(10,y,i, 13)
+            schematic.setBlockDataAt(10,y,i, 5)
             schematic.TileEntities.append(CommandBlock(10,y,i,dialog.format_execute(i),False))
 
             
@@ -311,7 +311,7 @@ def perform(level, box, options):
         
 
     else:
-        raise(Exception("Coulnd't parse path:"+csv_file))
+        raise(Exception("Couldn't parse path:"+csv_file))
 
     #Copies the schematic to the editor, taken from code by TexelElf
     editor.addCopiedSchematic(schematic)
