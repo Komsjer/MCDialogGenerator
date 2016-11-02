@@ -45,6 +45,7 @@ class MCDialog:
         self.default_damage = ""
         self.model_rot = ""
         self.audio_target = ""
+        self.kill_command = ""
         self.dialog = []
         self.load_csv(csv_filepath)
 
@@ -68,7 +69,7 @@ class MCDialog:
                     self.default_damage = dialog_row[8]
                     self.model_rot = dialog_row[9]
                     self.audio_target = dialog_row[10]
-
+                    self.kill_command = dialog_row[11]
                 if str(dialog_row[0]) == "END":
                     _is_reading = False
                     continue
@@ -126,11 +127,11 @@ class MCDialog:
         Line_2 = line_text[1] if len(line_text) > 1 else ""
         Line_3 = line_text[2] if len(line_text) > 2 else ""
         Line_4 = line_text[3] if len(line_text) > 3 else ""
-        return '/blockdata '+Cord_green+' {Text1: "{\\"text\\":\\"'+Line_1+'\\",\\"color\\":\\"dark_green\\",\\"bold\\":true,\\"clickEvent\\":{\\"action\\":\\"run_command\\",\\"value\\":\\"/scoreboard players add '+Identity_name+' DateProgress 1\\"}}",Text2: "{\\"text\\":\\"'+Line_2+'\\",\\"color\\":\\"dark_green\\",\\"bold\\":true}",Text3: "{\\"'+Line_3+'\\",\\"color\\":\\"dark_green\\",\\"bold\\":true}",Text4: "{\\"text\\":\\"'+Line_4+'\\",\\"color\\":\\"dark_green\\",\\"bold\\":true}"}'
-
+        return '/blockdata '+Cord_green+' {Text1: "{\\"text\\":\\"'+Line_1+'\\",\\"color\\":\\"dark_green\\",\\"bold\\":true,\\"clickEvent\\":{\\"action\\":\\"run_command\\",\\"value\\":\\"/scoreboard players add '+Identity_name+' DateProgress 1\\"}}",Text2: "{\\"text\\":\\"'+Line_2+'\\",\\"color\\":\\"dark_green\\",\\"bold\\":true}",Text3: "{\\"text\\":\\"'+Line_3+'\\",\\"color\\":\\"dark_green\\",\\"bold\\":true}",Text4: "{\\"text\\":\\"'+Line_4+'\\",\\"color\\":\\"dark_green\\",\\"bold\\":true}"}'
+    
     def format_sign_false(self, row_num):
         row = self.dialog[row_num]
-        Cord_green = self.cord_green_sign
+        Cord_red = self.cord_green_sign
         Identity_name = self.identity_name
         line_text = row["false_text"]
         line_text = line_text.split("/")
@@ -138,8 +139,8 @@ class MCDialog:
         Line_2 = line_text[1] if len(line_text) > 1 else ""
         Line_3 = line_text[2] if len(line_text) > 2 else ""
         Line_4 = line_text[3] if len(line_text) > 3 else ""
-        return '/blockdata '+Cord_green+' {Text1: "{\\"text\\":\\"'+Line_1+'\\",\\"color\\":\\"dark_red\\",\\"bold\\":true,\\"clickEvent\\":{\\"action\\":\\"run_command\\",\\"value\\":\\"/scoreboard players add '+Identity_name+' DateProgress 1\\"}}",Text2: "{\\"text\\":\\"'+Line_2+'\\",\\"color\\":\\"dark_red\\",\\"bold\\":true}",Text3: "{\\"'+Line_3+'\\",\\"color\\":\\"dark_red\\",\\"bold\\":true}",Text4: "{\\"text\\":\\"'+Line_4+'\\",\\"color\\":\\"dark_red\\",\\"bold\\":true}"}'
-
+        return '/blockdata '+Cord_red+' {Text1: "{\\"text\\":\\"'+Line_1+'\\",\\"color\\":\\"dark_red\\",\\"bold\\":true,\\"clickEvent\\":{\\"action\\":\\"run_command\\",\\"value\\":\\"/scoreboard players add '+Identity_name+' DateProgress 1\\"}}",Text2: "{\\"text\\":\\"'+Line_2+'\\",\\"color\\":\\"dark_red\\",\\"bold\\":true}",Text3: "{\\"text\\":\\"'+Line_3+'\\",\\"color\\":\\"dark_red\\",\\"bold\\":true}",Text4: "{\\"text\\":\\"'+Line_4+'\\",\\"color\\":\\"dark_red\\",\\"bold\\":true}"}'
+    
     def format_blockdata1(self, row_num):
         row = self.dialog[row_num]
         return "/blockdata ~3 ~ ~ {auto:1b}"
@@ -154,7 +155,8 @@ class MCDialog:
 
     def format_killcommand(self,row_num):
         row = self.dialog[row_num]
-        return "command /kill make it"
+        KillCommand = self.kill_command
+        return "/kill "+KillCommand if KillCommand != "" else ""
 
     def format_blockdata2(self, row_num):
         row = self.dialog[row_num]
