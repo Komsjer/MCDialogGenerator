@@ -10,6 +10,7 @@ import math
 import csv
 import re
 import os
+import sys
 
 displayName = "Komsjer's Dialog generator."
 
@@ -47,6 +48,7 @@ class MCDialog:
         self.audio_target = ""
         self.kill_command = ""
         self.dialog = []
+        self.exceptions = {}
         self.load_csv(csv_filepath)
 
     def load_csv(self, csv_filepath):
@@ -93,12 +95,21 @@ class MCDialog:
                     continue
 
                 if _is_reading and not (i-_start_location)%3 == 1:
-                    dialog_obj = {"id":"", "text":"", "true_text":"", "false_text":"", "sound_call":"","goto":""}
+                    dialog_obj = {"id":"", "text":"", "true_text":"", "false_text":"", "sound_call":"","goto":"","exceptions":{}}
                     dialog_obj["id"] = str(dialog_row[0])
                     dialog_obj["text"] = str(dialog_row[1])
                     dialog_obj["goto"] = re.sub(r"[^0-9]","", str(dialog_row[2] ))
                     dialog_obj["true_text"] = str(dialog_row[3])
                     dialog_obj["false_text"] = str(dialog_row[4])
+                    
+                    exceptions = dialog_row[5]
+                    if exceptions != "":
+                        exc =[n.split("=") for n in exceptions.split(",")]
+                        exceptions = {i[0]:i[1] for i in exc}
+                        dialog_obj["exceptions"].update(exceptions)
+                            
+                    
+                    self.exceptions = dialog_row[4].split()
                     self.dialog.append(dialog_obj)
 
     def format_tester(self, row_num):
@@ -170,7 +181,7 @@ class MCDialog:
         row = self.dialog[row_num]
         AIdentity_name = self.aidentity_name
         Audio_target = self.audio_target
-        ID = row["id"]
+        ID = row["exceptions"]["audio_number"] if "audio_number" in row["exceptions"] else row["id"]
         return "/execute @e[name="+AIdentity_name+"] ~ ~ ~ /playsound "+Audio_target+ID+" voice @a[] ~ ~ ~ 1"
     
     def log (self):
